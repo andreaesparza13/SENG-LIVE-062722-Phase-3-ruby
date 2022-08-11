@@ -112,6 +112,11 @@ bundle add sqlite3
 
 Install [DB Browser for SQLite](https://sqlitebrowser.org/)
 
+WSL [Using SQLite with VS Code Extension](https://www.youtube.com/watch?v=bKixKfb1J1o)
+  - Right click DB and select open Database
+  - In SQLite Explorer right click the Database and select new query 
+  - Wright the query, highlight the query, click right and select run query
+
 
 <!-- slide -->
 
@@ -194,7 +199,7 @@ VALUES ('Chop', '5', 'shiba inu', 'cheese', 'https://res.cloudinary.com/dnocv6uw
 SELECT * FROM pets
 
 SELECT * FROM pets 
-WHERE name = 'Olivia';
+WHERE name = 'rose';
 
 SELECT * FROM pets 
 WHERE favorite_treats = 'bacon';
@@ -219,7 +224,7 @@ DELETE FROM pets WHERE name = 'Chop';
 #### one-to-many
 
 ```
-SELECT pets.name, owners.name 
+SELECT pets.name, owners.name as 'owner'
 FROM pets
 JOIN owners ON pets.owner_id = owners.id;
 ```
@@ -236,7 +241,7 @@ CREATE TABLE handlers(
 
 
 
-CREATE TABLE requests(
+CREATE TABLE appointments(
   id INTEGER PRIMARY KEY,
   time DATETIME,
   request TEXT,
@@ -256,39 +261,39 @@ VALUES ('dorian', 'blue_boy@gmail.com', '8887776666');
 
 
 
-INSERT INTO requests (time, request, pet_id, handler_id) 
-VALUES ('2022-07-31 00:00:00', 'drop-in', 1,1)
+INSERT INTO appointments (time, request, pet_id, handler_id) 
+VALUES ('2022-07-31 00:00:00', 'drop-in', 1,1);
 
-INSERT INTO requests (time, request, pet_id, handler_id) 
-VALUES ('2022-03-01 00:00:00', 'drop-in', 1,1)
+INSERT INTO appointments (time, request, pet_id, handler_id) 
+VALUES ('2022-03-01 00:00:00', 'drop-in', 1,1);
 
-INSERT INTO requests (time, request, pet_id, handler_id) 
-VALUES ('2022-06-01 00:00:00', 'drop-in', 1,2)
+INSERT INTO appointments (time, request, pet_id, handler_id) 
+VALUES ('2022-06-01 00:00:00', 'drop-in', 1,2);
 
-INSERT INTO requests (time, request, pet_id, handler_id) 
-VALUES ('2022-05-21 00:00:00', 'wallk', 2,2)
+INSERT INTO appointments (time, request, pet_id, handler_id) 
+VALUES ('2022-05-21 00:00:00', 'walk', 2,2);
 
 
 SELECT
   pets.name,
   handlers.name,
-  requests.request,
-  requests.time
-FROM requests
+  appointments.request,
+  appointments.time
+FROM appointments
 JOIN pets
-  ON requests.pet_id = pets.id
+  ON appointments.pet_id = pets.id
 JOIN handlers
-  ON requests.handler_id = handlers.id;
+  ON appointments.handler_id = handlers.id;
 
 
 SELECT DISTINCT
   pets.name,
   handlers.name
-FROM requests
+FROM appointments
 JOIN pets
-  ON requests.pet_id = pets.id
+  ON appointments.pet_id = pets.id
 JOIN handlers
-  ON requests.handler_id = handlers.id
+  ON appointments.handler_id = handlers.id
 AND pets.name = 'Luke';
 
 
