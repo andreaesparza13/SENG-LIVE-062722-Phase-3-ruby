@@ -50,6 +50,10 @@ class Pet
       Owner.all.find{|o| o.id == self.owner.id}
     end
 
+    def Handlers
+      Appointment.all.filter{|a| a.pet_id == self.id}.map{|a| Handler.all.find{|h| h.id == a.handler_id}}
+    end
+
     
 private
     
