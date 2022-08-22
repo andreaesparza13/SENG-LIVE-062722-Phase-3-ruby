@@ -12,6 +12,21 @@
 
 ActiveRecord::Schema.define(version: 2022_07_26_003119) do
 
+  create_table "dog_walks", force: :cascade do |t|
+    t.boolean "pooped"
+    t.integer "dog_id", null: false
+    t.integer "walk_id", null: false
+    t.index ["dog_id"], name: "index_dog_walks_on_dog_id"
+    t.index ["walk_id"], name: "index_dog_walks_on_walk_id"
+  end
+
+  create_table "dogs", force: :cascade do |t|
+    t.string "name"
+    t.date "birthdate"
+    t.string "breed"
+    t.string "image_url"
+  end
+
   create_table "handlers", force: :cascade do |t|
     t.string "email"
     t.integer "phone"
@@ -40,4 +55,12 @@ ActiveRecord::Schema.define(version: 2022_07_26_003119) do
     t.integer "handler_id"
   end
 
+  create_table "walks", force: :cascade do |t|
+    t.datetime "time"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  add_foreign_key "dog_walks", "dogs"
+  add_foreign_key "dog_walks", "walks"
 end
